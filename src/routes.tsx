@@ -1,9 +1,8 @@
 import {
   Navigate,
   Route,
-  createBrowserRouter,
   createRoutesFromElements,
-} from "react-router-dom";
+} from "react-router";
 import NotFoundPage from "./pages/NotFound";
 import RootLayout from "./pages/Root";
 import ContactDetailPage, { contactByIdLoader } from "./pages/ContactDetail";
@@ -14,10 +13,11 @@ import About from "./pages/About/About";
 import Info from "./pages/About/Info";
 import Settings from "./pages/About/Settings";
 import EditContact, { contactLoader as editContactLoader, editAction } from "./pages/EditContact";
+import { createHashRouter } from "react-router";
 
-const appRouter = createBrowserRouter(
+const appRouter = createHashRouter(
   createRoutesFromElements(
-    <Route path="" element={<RootLayout />} errorElement={<NotFoundPage />}>
+    <Route path="/" element={<RootLayout />} errorElement={<NotFoundPage />}>
       <Route
         index={true}
         element={<Navigate to={"contacts"} replace={true} />}
