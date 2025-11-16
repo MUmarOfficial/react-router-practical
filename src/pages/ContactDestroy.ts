@@ -1,4 +1,4 @@
-import { ActionFunction, redirect } from "react-router-dom";
+import { ActionFunction, redirect } from "react-router";
 import { deleteContact } from "../api/contactsApi";
 
 export const destroyContactAction: ActionFunction = async ({

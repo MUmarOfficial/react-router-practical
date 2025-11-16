@@ -1,5 +1,5 @@
 import { getContactById } from "../api/contactsApi";
-import { Form, Link, Params, useLoaderData } from "react-router-dom";
+import { Form, Link, Params, useLoaderData } from "react-router";
 
 export const contactByIdLoader = async ({
   params

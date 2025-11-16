@@ -2,6 +2,7 @@ import {
   Navigate,
   Route,
   createRoutesFromElements,
+  createHashRouter,
 } from "react-router";
 import NotFoundPage from "./pages/NotFound";
 import RootLayout from "./pages/Root";
@@ -13,7 +14,6 @@ import About from "./pages/About/About";
 import Info from "./pages/About/Info";
 import Settings from "./pages/About/Settings";
 import EditContact, { contactLoader as editContactLoader, editAction } from "./pages/EditContact";
-import { createHashRouter } from "react-router";
 
 const appRouter = createHashRouter(
   createRoutesFromElements(
