@@ -33,136 +33,112 @@ const ContactsPage = () => {
   const { contacts } = useLoaderData() as Awaited<ReturnType<typeof contactsLoader>>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <Form action="./" method="POST" className="flex flex-col gap-4 items-center">
-        <h2 className="text-center text-lg">Add new contact</h2>
-        <label htmlFor="firstName" className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">First name</span>
-          </div>
-          <input
-            name="first"
-            id="firstName"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-          />
-        </label>
+    <div className="flex flex-col gap-10">
+      <div className="card bg-base-200 shadow-xl max-w-2xl mx-auto w-full">
+        <div className="card-body">
+          <h2 className="card-title justify-center text-2xl mb-4 text-primary">Add New Contact</h2>
+          <Form action="./" method="POST" className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-medium">First Name</span>
+                </label>
+                <input
+                  name="first"
+                  type="text"
+                  placeholder="John"
+                  className="input input-bordered w-full focus:input-primary"
+                  required
+                />
+              </div>
 
-        <label htmlFor="lastName" className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Last name</span>
-          </div>
-          <input
-            name="last"
-            id="lastName"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-          />
-        </label>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-medium">Last Name</span>
+                </label>
+                <input
+                  name="last"
+                  type="text"
+                  placeholder="Doe"
+                  className="input input-bordered w-full focus:input-primary"
+                  required
+                />
+              </div>
+            </div>
 
-        <label htmlFor="email" className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Email</span>
-          </div>
-          <input
-            name="email"
-            id="email"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-          />
-        </label>
-        <button className="btn btn-primary btn-outline max-w-xs">
-          Submit{" "}
-        </button>
-      </Form>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text font-medium">Email Address</span>
+              </label>
+              <input
+                name="email"
+                type="email"
+                placeholder="john.doe@example.com"
+                className="input input-bordered w-full focus:input-primary"
+                required
+              />
+            </div>
 
-      <section className="md:col-span-2">
-        <h1 className="text-center text-lg">Contacts List</h1>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Contact</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => {
-                return (
-                  <tr key={contact.login.uuid}>
-                    <td>
-                      <Link to={`/contacts/${contact.login.uuid}`}>
-                        <div className="flex items-center gap-3">
-                          <div
-                            className={`avatar ${contact.picture ? "" : "placeholder"}`}
-                          >
-                            {contact.picture ? (
-                              <div className="mask mask-squircle w-12 h-12">
-                                <img
-                                  src={contact.picture.thumbnail}
-                                  alt="Avatar Tailwind CSS Component"
-                                />
-                              </div>
-                            ) : (
-                              <div className="bg-neutral text-neutral-content rounded-full w-12">
-                                <span className="uppercase">
-                                  {contact.name.first[0]}
-                                  {contact.name.last[0]}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                          <div>
-                            <div className="font-bold">
-                              {contact.name.first} {contact.name.last}
-                            </div>
-                            <div className="text-sm opacity-50">
-                              {contact.email}
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </td>
-                    <td className="flex justify-center items-center gap-1">
-                      <Link to={`/contacts/${contact.login.uuid}/edit`} className="btn btn-outline btn-success btn-xs">
-                        Edit
-                      </Link>
-
-                      <Form method="POST" action={`/contacts`}>
-                        <input type="hidden" name="first" value={contact.name.first} />
-                        <input type="hidden" name="last" value={contact.name.last} />
-                        <input type="hidden" name="email" value={contact.email} />
-                        <button className="btn btn-outline btn-primary btn-xs">
-                          Duplicate
-                        </button>
-                      </Form>
-
-                      <Form method="delete" onSubmit={(event) => {
-                        const result = confirm('Confirm deletion of this contact.');
-                        if (!result) {
-                          event.preventDefault();
-                        }
-                      }} action={`/contacts/${contact.login.uuid}/destroy`}>
-                        <button className="btn btn-outline btn-error btn-xs">
-                          Delete
-                        </button>
-                      </Form>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>Contact</th>
-                <th>Actions</th>
-              </tr>
-            </tfoot>
-          </table>
+            <div className="card-actions justify-end mt-4">
+              <button className="btn btn-primary w-full md:w-auto">
+                Add Contact
+              </button>
+            </div>
+          </Form>
         </div>
+      </div>
+
+      <section>
+        <h2 className="text-3xl font-bold mb-8 text-center border-b border-white/10 pb-4">My Contacts</h2>
+        {contacts.length === 0 ? (
+          <div className="text-center py-10 opacity-50">
+            <p className="text-xl">No contacts found. Add one above!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {contacts.map((contact) => (
+              <div key={contact.login.uuid} className="card bg-base-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div className="card-body items-center text-center p-6">
+                  <div className="avatar mb-3">
+                    <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      {contact.picture ? (
+                        <img src={contact.picture.medium} alt={`${contact.name.first} ${contact.name.last}`} />
+                      ) : (
+                        <div className="bg-neutral text-neutral-content w-full h-full flex items-center justify-center text-2xl font-bold">
+                          {contact.name.first[0]}{contact.name.last[0]}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <h3 className="card-title text-xl">
+                    {contact.name.first} {contact.name.last}
+                  </h3>
+                  <p className="text-sm opacity-70 break-all">{contact.email}</p>
+
+                  <div className="divider my-2"></div>
+
+                  <div className="card-actions justify-between w-full mt-2">
+                    <Link to={`/contacts/${contact.login.uuid}`} className="btn btn-sm btn-ghost text-info">
+                      View
+                    </Link>
+                    <Link to={`/contacts/${contact.login.uuid}/edit`} className="btn btn-sm btn-ghost text-success">
+                      Edit
+                    </Link>
+
+                    <Form method="delete" onSubmit={(event) => {
+                      const result = confirm('Delete this contact?');
+                      if (!result) event.preventDefault();
+                    }} action={`/contacts/${contact.login.uuid}/destroy`}>
+                      <button className="btn btn-sm btn-ghost text-error">
+                        Delete
+                      </button>
+                    </Form>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

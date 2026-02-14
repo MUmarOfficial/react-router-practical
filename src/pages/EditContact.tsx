@@ -48,66 +48,78 @@ const EditContact = () => {
     const navigate = useNavigate();
 
     return (
-        <Form method="post" id="contact-form" className="flex flex-col gap-4 items-center">
-            <h2 className="text-center text-lg">Edit Contact</h2>
-            <label htmlFor="url" className="form-control w-full max-w-xs">
-                <div className="label">
-                    <span className="label-text">Picture URL</span>
-                </div>
-                <input
-                    type="url"
-                    name="url"
-                    id="url"
-                    defaultValue={contact.picture?.thumbnail}
-                    className="input input-bordered w-full max-w-xs"
-                />
-            </label>
-            <label htmlFor="first" className="form-control w-full max-w-xs">
-                <div className="label">
-                    <span className="label-text">First name</span>
-                </div>
-                <input
-                    type="text"
-                    name="first"
-                    id="first"
-                    defaultValue={contact.name.first}
-                    className="input input-bordered w-full max-w-xs"
-                />
-            </label>
+        <div className="card bg-base-200 shadow-xl max-w-2xl mx-auto mt-8">
+            <div className="card-body">
+                <h2 className="card-title justify-center text-3xl mb-6 text-primary">Edit Contact</h2>
+                <Form method="post" id="contact-form" className="flex flex-col gap-6">
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Profile Picture URL</span>
+                        </label>
+                        <input
+                            type="url"
+                            name="url"
+                            defaultValue={contact.picture?.thumbnail}
+                            placeholder="https://example.com/image.jpg"
+                            className="input input-bordered w-full focus:input-primary"
+                        />
+                    </div>
 
-            <label htmlFor="last" className="form-control w-full max-w-xs">
-                <div className="label">
-                    <span className="label-text">Last name</span>
-                </div>
-                <input
-                    type="text"
-                    name="last"
-                    id="last"
-                    defaultValue={contact.name.last}
-                    className="input input-bordered w-full max-w-xs"
-                />
-            </label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text font-medium">First Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="first"
+                                defaultValue={contact.name.first}
+                                placeholder="First Name"
+                                className="input input-bordered w-full focus:input-primary"
+                                required
+                            />
+                        </div>
 
-            <label htmlFor="email" className="form-control w-full max-w-xs">
-                <div className="label">
-                    <span className="label-text">Email</span>
-                </div>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    defaultValue={contact.email}
-                    className="input input-bordered w-full max-w-xs"
-                />
-            </label>
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text font-medium">Last Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="last"
+                                defaultValue={contact.name.last}
+                                placeholder="Last Name"
+                                className="input input-bordered w-full focus:input-primary"
+                                required
+                            />
+                        </div>
+                    </div>
 
-            <div className="flex gap-2">
-                <button type="submit" className="btn btn-primary">Save</button>
-                <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
-                    Cancel
-                </button>
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Email Address</span>
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            defaultValue={contact.email}
+                            placeholder="email@example.com"
+                            className="input input-bordered w-full focus:input-primary"
+                            required
+                        />
+                    </div>
+
+                    <div className="card-actions justify-end mt-6 gap-3">
+                        <button type="button" className="btn btn-ghost hover:bg-base-300" onClick={() => navigate(-1)}>
+                            Cancel
+                        </button>
+                        <button type="submit" className="btn btn-primary px-8">
+                            Save Changes
+                        </button>
+                    </div>
+                </Form>
             </div>
-        </Form>
+        </div>
     );
 };
 

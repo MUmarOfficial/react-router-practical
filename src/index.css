@@ -2,13 +2,38 @@
 @plugin "daisyui";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  --color-base-100: #1a1a2e; /* Deep Blue Background */
+  --color-base-200: #16213e; /* Slightly lighter for cards/sidebar */
+  --color-base-300: #0f3460;
+  --color-primary: #e94560; /* Vibrant Red/Pink Accent */
+  --color-secondary: #533483; /* Deep Purple */
+  --color-accent: #e94560;
+
+  --rounded-box: 1rem;
+  --rounded-btn: 0.5rem;
+  --rounded-badge: 1.9rem;
+
+  background-color: var(--color-base-100);
+  color: #e0e0e0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,3 +41,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --color-base-100: #1a1a2e;
+  --color-base-200: #16213e;
+  --color-base-300: #0f3460;
+  --color-primary: #e94560;
+}
+
+html {
+  background-color: var(--color-base-100);
+}
+
+body {
+  background-color: var(--color-base-100);
+  color: #e0e0e0;
+}
